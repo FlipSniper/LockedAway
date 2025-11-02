@@ -1,0 +1,6 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://tcl2h0yr2ffl"]
+
+[ext_resource type="Texture2D" uid="uid://bmjubjs640gp0" path="res://textures/cracked_concrete_wall_diff_4k.jpg" id="1_xvgr5"]
+
+[resource]
+albedo_texture = ExtResource("1_xvgr5")
