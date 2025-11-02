@@ -11,6 +11,8 @@ var camera_pitch := 0.0
 @onready var rng = RandomNumberGenerator.new()
 @onready var player_key = $head/key
 
+@export var key_scene : PackedScene
+
 var controls_enabled = true
 
 func _ready() -> void:
@@ -79,3 +81,24 @@ func equip_item(item_name: String) -> void:
 	if equipped_item != "":
 		match equipped_item:
 			"KEY": player_key.visible = false
+	
+	equipped_item = item_name
+	
+	match item_name:
+		"KEY": player_key.visible = true
+		_: pass
+
+func drop_item() -> void:
+	if equipped_item == "" or not Inventory:
+		return
+	var scene: PackedScene = null
+	
+	match equipped_item:
+		"KEY": scene = key_scene
+		_: scene = null
+	
+	if scene:
+		var dropped = scene.instantiate()
+		var spawn_pos = head.global_transform.origin + - head.global_transform.basis.z * 1.2 + Vector3.UP * 0.5
+		if dropped is RigidBody3D:
+			pass
