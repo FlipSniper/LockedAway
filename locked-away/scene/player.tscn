@@ -1,5 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://bwnrt5lfknak7"]
+[gd_scene load_steps=5 format=3 uid="uid://bwnrt5lfknak7"]
 
+[ext_resource type="Script" uid="uid://bpmirq3yg4ca0" path="res://general_scripts/player.gd" id="1_hjaqi"]
 [ext_resource type="Script" uid="uid://dcj85x6dhw4i3" path="res://general_scripts/fp_cam.gd" id="1_xo3ru"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_4qnqm"]
@@ -7,6 +8,7 @@
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4qnqm"]
 
 [node name="player" type="CharacterBody3D"]
+script = ExtResource("1_hjaqi")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_4qnqm")
