@@ -101,4 +101,32 @@ func drop_item() -> void:
 		var dropped = scene.instantiate()
 		var spawn_pos = head.global_transform.origin + - head.global_transform.basis.z * 1.2 + Vector3.UP * 0.5
 		if dropped is RigidBody3D:
-			pass
+			dropped.global_transform.origin = spawn_pos
+			dropped.apply_central_force(-head.global_transform.basis.z * 3)
+		else:
+			var space_state = get_world_3d().direct_space_state
+			var from = spawn_pos + Vector3.UP * 5.0
+			var to = spawn_pos - Vector3.UP * 10.0
+			var params = PhysicsRayQueryParameters3D.new()
+			params.from = from
+			params.to = to
+			params.collide_with_bodies = true
+			var result = space_state.intersect_ray(params)
+			if result:
+				spawn_pos.y = result.position.y + 0.1
+			else:
+				spawn_pos.y = 0.0
+			dropped.global_transform.origin = spawn_pos
+			
+		get_tree().current_scene.add_child(dropped)
+		dropped.name = equipped_item.to_lower()
+	
+	var slot_index = Inventory.slots.find(equipped_item)
+	if slot_index != -1:
+		Inventory.slots[slot_index] = null
+	Inventory.emit_signal("inventory_updated")
+	
+	match equipped_item:
+		"KEY": player_key.visible = false
+	
+	equipped_item = ""
